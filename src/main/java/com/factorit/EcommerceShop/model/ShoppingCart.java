@@ -14,7 +14,7 @@ import java.util.List;
 @Table(name = "cart_tbl")
 public class ShoppingCart implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private CartEnum cartType;
@@ -36,6 +36,12 @@ public class ShoppingCart implements Serializable {
 
     @Column(name = "cart_totalprice")
     private BigDecimal totalAmount;
+
+    @Column(name = "is_bought")
+    private boolean hasBought;
+
+    @Column(name = "client_name")
+    private String clientName;
 
     @OneToMany(mappedBy = "shoppingCart", cascade = CascadeType.ALL)
     private List<Product> productsList = new ArrayList<>();
@@ -128,6 +134,22 @@ public class ShoppingCart implements Serializable {
 
     public void setTotalAmount(BigDecimal totalAmount) {
         this.totalAmount = totalAmount;
+    }
+
+    public boolean isHasBought() {
+        return hasBought;
+    }
+
+    public void setHasBought(boolean hasBought) {
+        this.hasBought = hasBought;
+    }
+
+    public String getClientName() {
+        return clientName;
+    }
+
+    public void setClientName(String clientName) {
+        this.clientName = clientName;
     }
 
     @Override
