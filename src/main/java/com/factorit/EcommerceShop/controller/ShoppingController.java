@@ -9,8 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
+import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api/v1")
 public class ShoppingController {
@@ -36,10 +37,9 @@ public class ShoppingController {
         return cartService.deleteCart(id);
     }
 
-
     @PostMapping("/addproduct/{id}")
     public ResponseEntity<?> addToCart(@RequestBody Product product, @PathVariable Long id) {
-        return cartService.addProduct(product,id);
+        return cartService.addProduct(product, id);
     }
 
     @PostMapping("/buy/{id}")
@@ -47,9 +47,14 @@ public class ShoppingController {
         return cartService.buyShoppingCart(id, client);
     }
 
-//    @RequestMapping("/time")
-//    public void time() {
-//        systemTime.getMinutesPassed();
-//    }
+    @RequestMapping("/time")
+    public void time() {
+        systemTime.deleteInactiveCarts();
+    }
+
+    @GetMapping("/getallcarts")
+    public ResponseEntity<?> getAllShoppingCarts() {
+        return cartService.getAllCarts();
+    }
 
 }

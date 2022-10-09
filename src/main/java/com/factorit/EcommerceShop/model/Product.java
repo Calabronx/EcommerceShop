@@ -1,5 +1,8 @@
 package com.factorit.EcommerceShop.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -8,7 +11,7 @@ import java.math.BigDecimal;
 @Table(name = "products_tbl")
 public class Product implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "product_name")
@@ -18,15 +21,21 @@ public class Product implements Serializable {
     private BigDecimal price;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    //@JsonManagedReference
+    @JsonBackReference
     @JoinColumn(name = "products_cart")
     private ShoppingCart shoppingCart;
+
+    @Column(name = "product_quantity")
+    private String quantity;
 
     public Product() {
     }
 
-    public Product(String name, BigDecimal price) {
+    public Product(String name, BigDecimal price, String quantity) {
         this.name = name;
         this.price = price;
+        this.quantity = quantity;
     }
 
     public Long getId() {
@@ -61,12 +70,21 @@ public class Product implements Serializable {
         this.shoppingCart = shoppingCart;
     }
 
+    public String getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(String quantity) {
+        this.quantity = quantity;
+    }
+
     @Override
     public String toString() {
         return "Product{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", price=" + price +
+                ", quantity='" + quantity + '\'' +
                 '}';
     }
 }

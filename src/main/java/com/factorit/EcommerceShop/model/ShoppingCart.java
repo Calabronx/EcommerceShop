@@ -1,9 +1,15 @@
 package com.factorit.EcommerceShop.model;
 
 import com.factorit.EcommerceShop.utils.CartEnum;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -12,6 +18,12 @@ import java.util.List;
 
 @Entity
 @Table(name = "cart_tbl")
+//@XmlAccessorType(XmlAccessType.FIELD)
+//@XmlType(name = "ShoppingCart", propOrder = {
+//        "cartName",
+//        "totalAmount",
+//        "productsList"
+//})
 public class ShoppingCart implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,6 +31,7 @@ public class ShoppingCart implements Serializable {
 
     private CartEnum cartType;
 
+    //@XmlElement(required = true)
     @Column(name = "cart_name")
     private String cartName;
 
@@ -34,8 +47,12 @@ public class ShoppingCart implements Serializable {
     @Column(name = "cart_descount")
     private int descount;
 
+    //@XmlElement(required = true)
     @Column(name = "cart_totalprice")
     private BigDecimal totalAmount;
+
+    @Column(name = "inicial_price")
+    private BigDecimal inicialPrice;
 
     @Column(name = "is_bought")
     private boolean hasBought;
@@ -43,14 +60,21 @@ public class ShoppingCart implements Serializable {
     @Column(name = "client_name")
     private String clientName;
 
+    @Column(name = "is_inactive")
+    private boolean deleteInactive;
+
+    //@XmlElement(required = true)
+
     @OneToMany(mappedBy = "shoppingCart", cascade = CascadeType.ALL)
+    //@JsonBackReference
+    @JsonManagedReference
     private List<Product> productsList = new ArrayList<>();
 
 
     public ShoppingCart() {
     }
 
-    public ShoppingCart(Long id, CartEnum cartType, String cartName, LocalDateTime createdAt, boolean deleted, int buyCount, int descount) {
+    public ShoppingCart(Long id, CartEnum cartType, String cartName, LocalDateTime createdAt, boolean deleted, int buyCount, int descount, BigDecimal totalAmount, BigDecimal inicialPrice, boolean hasBought, String clientName, boolean deleteInactive, List<Product> productsList) {
         this.id = id;
         this.cartType = cartType;
         this.cartName = cartName;
@@ -58,6 +82,12 @@ public class ShoppingCart implements Serializable {
         this.deleted = deleted;
         this.buyCount = buyCount;
         this.descount = descount;
+        this.totalAmount = totalAmount;
+        this.inicialPrice = inicialPrice;
+        this.hasBought = hasBought;
+        this.clientName = clientName;
+        this.deleteInactive = deleteInactive;
+        this.productsList = productsList;
     }
 
     public Long getId() {
@@ -152,15 +182,37 @@ public class ShoppingCart implements Serializable {
         this.clientName = clientName;
     }
 
+    public boolean isDeleteInactive() {
+        return deleteInactive;
+    }
+
+    public void setDeleteInactive(boolean deleteInactive) {
+        this.deleteInactive = deleteInactive;
+    }
+
+
+    public BigDecimal getInicialPrice() {
+        return inicialPrice;
+    }
+
+    public void setInicialPrice(BigDecimal inicialPrice) {
+        this.inicialPrice = inicialPrice;
+    }
+
+
     @Override
     public String toString() {
-        return "ShoppingCart{" +
+        return
                 "id=" + id +
                 ", cartName='" + cartName + '\'' +
                 ", createdAt=" + createdAt +
                 ", buyCount=" + buyCount +
                 ", descount=" + descount +
                 ", totalAmount=" + totalAmount +
+                ", inicialPrice=" + inicialPrice +
+                ", hasBought=" + hasBought +
+                ", clientName='" + clientName + '\'' +
+                ", deleteInactive=" + deleteInactive +
                 ", productsList=" + productsList +
                 '}';
     }

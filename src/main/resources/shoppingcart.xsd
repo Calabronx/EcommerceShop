@@ -1,0 +1,28 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns
+           targetNamespace="http://localhost:8080/api/v1/cartstatus/{id}" elementFormDefault="qualified">
+
+    <xs:element name="ShoppingCartsDetails">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="name" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="StudentDetailsResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="ShoppingCart" type="tns:ShoppingCart"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="ShoppingCart">
+        <xs:sequence>
+            <xs:element name="cartName" type="xs:string"/>
+            <xs:element name="totalAmount" type="xs:int"/>
+            <xs:element name="productsList" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+</xs:schema>
