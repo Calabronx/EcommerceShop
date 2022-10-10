@@ -105,6 +105,81 @@ public class ShoppingCartService {
         //return new ResponseEntity<>(cartList, HttpStatus.OK);
     }
 
+    public ResponseEntity<?> addProductFromMarket(@RequestBody Product product, Long id) {
+        Optional<ShoppingCart> cartAux = shoppingCartRepository.findById(id);
+        //List<ShoppingCart> cartList = new ArrayList<>();
+        if (cartAux.isEmpty()) {
+            //return new ResponseEntity<>(cartList, HttpStatus.NOT_FOUND);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .body("Carrito buscado es inexistente");
+        }
+        ShoppingCart shoppingCart = shoppingCartRepository.getById(id);
+        shoppingCart.setBuyCount(incrementCart(shoppingCart));
+        product = productRepository.getById(product.getId());
+        product.setShoppingCart(shoppingCart);
+        product.setQuantity(product.getQuantity());
+        shoppingCart.addProduct(product);
+
+        double totalAmount = 0;
+        for (int i = 0; i < shoppingCart.getProductsList().size(); i++) {
+            double value = shoppingCart.getProductsList().get(i).getPrice().doubleValue();
+            totalAmount += value;
+            BigDecimal decimal = BigDecimal.valueOf(totalAmount);
+            shoppingCart.setTotalAmount(decimal);
+        }
+
+        //cartList.add(shoppingCart);
+        shoppingCartRepository.save(shoppingCart);
+        //productRepository.save(product);
+        System.out.println("Producto agregado con exito");
+        return ResponseEntity.status(HttpStatus.OK)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(shoppingCart.getProductsList());
+    }
+
+    public ResponseEntity<?> addProductByName(@RequestBody Product product, Long id) {
+        Optional<ShoppingCart> cartAux = shoppingCartRepository.findById(id);
+        Optional<Product> productAux = productRepository.getByName(product.getName());
+        //List<ShoppingCart> cartList = new ArrayList<>();
+        if (cartAux.isEmpty()) {
+            //return new ResponseEntity<>(cartList, HttpStatus.NOT_FOUND);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .body("Carrito buscado es inexistente");
+        }
+        if (productAux.isEmpty()) {
+            //return new ResponseEntity<>(cartList, HttpStatus.NOT_FOUND);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .body("Producto no existe o no esta disponible");
+        }
+        ShoppingCart shoppingCart = shoppingCartRepository.getById(id);
+        shoppingCart.setBuyCount(incrementCart(shoppingCart));
+        product = productRepository.findByName(product.getName());
+
+        product.setShoppingCart(shoppingCart);
+        product.setQuantity(product.getQuantity());
+        shoppingCart.addProduct(product);
+
+        double totalAmount = 0;
+        for (int i = 0; i < shoppingCart.getProductsList().size(); i++) {
+            double value = shoppingCart.getProductsList().get(i).getPrice().doubleValue();
+            totalAmount += value;
+            BigDecimal decimal = BigDecimal.valueOf(totalAmount);
+            shoppingCart.setTotalAmount(decimal);
+        }
+
+        //cartList.add(shoppingCart);
+        shoppingCartRepository.save(shoppingCart);
+        //productRepository.save(product);
+        System.out.println("Producto agregado con exito");
+        return ResponseEntity.status(HttpStatus.OK)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(shoppingCart.getProductsList());
+    }
+
+
     /**
      * agregar atributo a ShoppingCart de precioInicial, para guardar el precio anterior al descuento
      * asi el usuario puede ver el precio anterior y el precio final con el descuento

@@ -37,9 +37,14 @@ public class ShoppingController {
         return cartService.deleteCart(id);
     }
 
+//    @PostMapping("/addproduct/{id}")
+//    public ResponseEntity<?> addToCart(@RequestBody Product product, @PathVariable Long id) {
+//        return cartService.addProduct(product, id);
+//    }
+
     @PostMapping("/addproduct/{id}")
-    public ResponseEntity<?> addToCart(@RequestBody Product product, @PathVariable Long id) {
-        return cartService.addProduct(product, id);
+    public ResponseEntity<?> add(@RequestBody Product product, @PathVariable Long id) {
+        return cartService.addProductFromMarket(product, id);
     }
 
     @PostMapping("/buy/{id}")
@@ -57,4 +62,8 @@ public class ShoppingController {
         return cartService.getAllCarts();
     }
 
+    @PostMapping("/add-name/{id}")
+    public ResponseEntity<?> addProductByName(@RequestBody Product product,@PathVariable Long id) {
+        return cartService.addProductByName(product,id);
+    }
 }

@@ -4,6 +4,7 @@ import com.factorit.EcommerceShop.service.ProductService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api/v2")
 public class ProductController {
@@ -27,5 +28,10 @@ public class ProductController {
     @DeleteMapping("/del/quantity/{id}")
     public ResponseEntity<?> deleteQuantity(@PathVariable Long id) {
         return productService.deleteQuantity(id);
+    }
+
+    @GetMapping("/get")
+    public ResponseEntity<?> getAllProducts() {
+        return productService.getAllProducts();
     }
 }

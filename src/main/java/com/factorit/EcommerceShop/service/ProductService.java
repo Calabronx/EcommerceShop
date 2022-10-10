@@ -6,10 +6,12 @@ import com.factorit.EcommerceShop.repository.ProductRepository;
 import com.factorit.EcommerceShop.repository.ShoppingCartRepository;
 import com.factorit.EcommerceShop.utils.ScriptSqlRunner;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -23,12 +25,6 @@ public class ProductService {
         this.productRepository = productRepository;
         this.shoppingCartRepository = shoppingCartRepository;
     }
-
-//    public ResponseEntity<?> addProduct(@RequestBody Product product) {
-//        productRepository.save(product);
-//        return new ResponseEntity<>("Producto agredado al carrito", HttpStatus.OK);
-//
-//    }
 
     public ResponseEntity<?> deleteProduct(Long id) {
         Optional<Product> productAux = productRepository.findById(id);
@@ -94,6 +90,14 @@ public class ProductService {
             return new ResponseEntity<>("Se elimino el producto :", HttpStatus.OK);
         }
         return new ResponseEntity<>("Se elimino una cantidad de :" + product.getName(), HttpStatus.OK);
+    }
+
+    public ResponseEntity<?> getAllProducts() {
+        List<Product> productsList = productRepository.findAll();
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(productsList);
     }
 }
 
