@@ -13,5 +13,7 @@ public class EcommerceShopApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(EcommerceShopApplication.class, args);
 		ScriptSqlRunner.runScript("src/main/resources/scripts/alterProductsID.sql");
+		//ScriptSqlRunner.runScript("src/main/resources/scripts/chargeProducts.sql");
+		//SystemTime.chargeProductsIfEmpty();
 	}
 }

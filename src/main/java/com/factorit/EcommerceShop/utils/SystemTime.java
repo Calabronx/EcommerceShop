@@ -4,10 +4,14 @@ import com.factorit.EcommerceShop.model.Product;
 import com.factorit.EcommerceShop.model.ShoppingCart;
 import com.factorit.EcommerceShop.repository.ProductRepository;
 import com.factorit.EcommerceShop.repository.ShoppingCartRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 
+import javax.annotation.PostConstruct;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -18,9 +22,15 @@ import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Esta clase cumple la funcionalidad de scheduler para manejar y chequear el tiempo
+ * Tiene funciones para eliminar carritos inactivos de la tabla que han pasado mas de 40 minutos sin comprarse
+ */
 @Configuration
 @EnableScheduling
 public class SystemTime {
+
+    private static final Logger logger = LoggerFactory.getLogger(SystemTime.class);
 
     @Autowired
     private ShoppingCartRepository shoppingCartRepository;
@@ -28,9 +38,11 @@ public class SystemTime {
     @Autowired
     private ProductRepository productRepository;
 
-    private final long MONTH_TIME_SCHEDULED = 2629800000L;
+    private ShoppingCart shoppingCart;
 
-    private final long CHECK_INACTIVE_CARTS_TIME = 300000L;
+    private final long MONTH_TIME_SCHEDULED = 2629800000L; // Un mes en milisegundos para preguntar cada un mes los carritos inactivos
+
+    private final long CHECK_INACTIVE_CARTS_TIME = 2400000L;// 40 minutos en milisegundos
 
 
     public SystemTime() {
@@ -38,31 +50,32 @@ public class SystemTime {
     }
 
     /**
-     * pensar bien lo que se quiere hacer aca, que primero ejecute un script para borrar los carritos inactivos pasado
-     * unos minutos.
-     * Luego cuando este funcionando, que calcule hora de inactividad
-     * tambien que tenga una funcion para chequear cuanto se compro por mes, asi se puede realizar otro requerimiento del
-     * challenge y poder lograr lo sig
-     * - Si el cliente en un determinado mes, realizó compras por más de $10.000, pasa a ser
-     * considerado VIP en su próxima compra. (considerar el valor de lo que realmente paga el
-     * cliente por los carritos luego de aplicarle los descuentos
-     * Si el cliente en un determinado mes, no realizó compras, deja de ser VIP si lo era.
+     *
      */
 
-//    @Scheduled(fixedRate = MONTH_TIME_SCHEDULED)
-//    public void testDelete() {
-//        //condicionar para que se ejecute recien el tiempo dado, no al inicio de la app
-//        System.out.println("running testDelete() method....");
-//        ScriptSqlRunner.runScript("src/main/resources/scripts/deleteCarts.sql");
-//    }
-    //@Scheduled(fixedRate = CHECK_INACTIVE_CARTS_TIME)
+    // ejecuta en el startup de la applicacion y carga los productos a la tabla si esta vacia( pensado para la primera ejecucion
+    //de la applicacion.
+    @PostConstruct
+    public void chargeProductsIfEmpty() {
+        List<Product> list = productRepository.findAll();
+        if (list.isEmpty()) {
+            logger.info("Estado de la base es Vacio");
+            logger.info("Cargando 10 productos iniciales en la base");
+            ScriptSqlRunner.runScript("src/main/resources/scripts/chargeProducts.sql");
+        }
+    }
+
+    /**
+     * Elimina los carritos inactivos
+     */
+    @Scheduled(fixedRate = CHECK_INACTIVE_CARTS_TIME)
     public void deleteInactiveCarts() {
-        System.out.println("Running");
+        logger.info("Scheduler ejecutando - chequeando carritos inactivos");
         List<ShoppingCart> checkShoppingCarts = shoppingCartRepository.findAll();
         LocalDateTime timeNow = LocalDateTime.now();
         SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
         for (int i = 0; i < checkShoppingCarts.size(); i++) {
-            ShoppingCart shoppingCart = checkShoppingCarts.get(i);
+            shoppingCart = checkShoppingCarts.get(i);
             //Product product =
             //int cartCreationTime = shoppingCart.getCreatedAt().;
             String dateStart = shoppingCart.getCreatedAt().getHour() + ":" + shoppingCart.getCreatedAt().getMinute() + ":"
@@ -73,8 +86,15 @@ public class SystemTime {
             try {
                 Date date1 = format.parse(dateStart);
                 Date date2 = format.parse(dateNow);
-                timePassed = date1.getTime() - date2.getTime();
-                System.out.println(timePassed);
+
+                timePassed = date2.getTime() - date1.getTime();
+
+                long difference_In_Minutes
+                        = (timePassed
+                        / (1000 * 60))
+                        % 60;
+
+                logger.info("Han pasado " + difference_In_Minutes + " minutos de inactividad del carrito de compras ");
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -82,17 +102,19 @@ public class SystemTime {
             //int timePassed = minutes_now - cartCreationTime;
             if (timePassed > CHECK_INACTIVE_CARTS_TIME && !shoppingCart.isHasBought()) {
                 //borrar unicamente el carrito especifico
-                System.out.println("Carrito inactivo hace 5  minutos");
-                System.out.println(shoppingCart.getProductsList() + " ha sido eliminado por el sistema");
+                logger.info("Carrito inactivo hace 40  minutos");
+                logger.info(shoppingCart.getProductsList() + " ha sido eliminado por el sistema");
+
                 //borra todos los cart, corregir
                 shoppingCart.setDeleteInactive(true);
                 shoppingCartRepository.save(shoppingCart);
             } else {
-                System.out.println("no pasaron 5 m");
+                logger.info("No se encontraron carritos inactivos por mas de 40 minutos");
             }
             //deleteParentShoppingCart();
-            ScriptSqlRunner.runScript("src/main/resources/scripts/deleteInactiveCarts.sql");
         }
+        //if(productRepository.getById(shoppingCart.get))
+        ScriptSqlRunner.runScript("src/main/resources/scripts/deleteInactiveCarts.sql");
     }
 
     public void deleteParentShoppingCart(Product product) throws SQLException {
@@ -105,7 +127,5 @@ public class SystemTime {
         stmt.addBatch();
         stmt.executeBatch();
     }
-
-
 }
 

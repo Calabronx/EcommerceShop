@@ -3,6 +3,8 @@ package com.factorit.EcommerceShop.service;
 import com.factorit.EcommerceShop.model.Client;
 import com.factorit.EcommerceShop.repository.ClientRepository;
 import com.factorit.EcommerceShop.utils.CartEnum;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +18,8 @@ import java.util.Optional;
 @Service
 public class ClientService {
 
+    private static final Logger logger = LoggerFactory.getLogger(ClientService.class);
+
     private final ClientRepository clientRepository;
 
     public ClientService(ClientRepository clientRepository) {
@@ -26,8 +30,10 @@ public class ClientService {
         List<Client> clientData = new ArrayList<>();
         client.setId(client.getId());
         client.setName(client.getName());
-        client.setNextMonthBonus("NOT_BONUS");
+        client.setNextMonthBonus(String.valueOf(CartEnum.NOT_BONUS));
+        client.setLevel(String.valueOf(CartEnum.DEFAULT_ANY));
         clientData.add(client);
+        logger.info("creando cliente");
         clientRepository.save(client);
         return new ResponseEntity<>(clientData, HttpStatus.OK);
     }

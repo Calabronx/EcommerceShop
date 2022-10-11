@@ -1,8 +1,7 @@
 package com.factorit.EcommerceShop.model;
 
-import org.hibernate.annotations.CreationTimestamp;
-
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
@@ -21,21 +20,29 @@ public class Client {
     @Column(name = "next_monthbonus")
     private String nextMonthBonus;
 
-    @Column(name = "is_vip" )
+    @Column(name = "is_vip")
     private boolean isVipClient = false;
-    @Column(name = "vip_obtained" )
+    @Column(name = "vip_obtained")
     private LocalDateTime vipAdquireDate;
+
+    @Column(name = "end_vip")
+    private LocalDateTime endMembershipDate;
+
+    @Column(name = "buys_amount")
+    private BigDecimal client_buys;
 
     public Client() {
     }
 
-    public Client(Long id, String name, String level, String nextMonthBonus, boolean isVipClient, LocalDateTime vipAdquireDate) {
+    public Client(Long id, String name, String level, String nextMonthBonus, boolean isVipClient, LocalDateTime vipAdquireDate, LocalDateTime endMembershipDate, BigDecimal client_buys) {
         this.id = id;
         this.name = name;
         this.level = level;
         this.nextMonthBonus = nextMonthBonus;
         this.isVipClient = isVipClient;
         this.vipAdquireDate = vipAdquireDate;
+        this.endMembershipDate = endMembershipDate;
+        this.client_buys = client_buys;
     }
 
     public Long getId() {
@@ -86,6 +93,22 @@ public class Client {
         this.vipAdquireDate = vipAdquireDate;
     }
 
+    public LocalDateTime getEndMembershipDate() {
+        return endMembershipDate;
+    }
+
+    public void setEndMembershipDate(LocalDateTime endMembershipDate) {
+        this.endMembershipDate = endMembershipDate;
+    }
+
+    public BigDecimal getClient_buys() {
+        return client_buys;
+    }
+
+    public void setClient_buys(BigDecimal client_buys) {
+        this.client_buys = client_buys;
+    }
+
     @Override
     public String toString() {
         return "Client{" +
@@ -95,6 +118,8 @@ public class Client {
                 ", nextMonthBonus='" + nextMonthBonus + '\'' +
                 ", isVipClient=" + isVipClient +
                 ", vipAdquireDate=" + vipAdquireDate +
+                ", endMembershipDate=" + endMembershipDate +
+                ", client_buys=" + client_buys +
                 '}';
     }
 }

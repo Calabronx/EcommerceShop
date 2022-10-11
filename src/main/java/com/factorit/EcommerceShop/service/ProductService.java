@@ -5,6 +5,8 @@ import com.factorit.EcommerceShop.model.ShoppingCart;
 import com.factorit.EcommerceShop.repository.ProductRepository;
 import com.factorit.EcommerceShop.repository.ShoppingCartRepository;
 import com.factorit.EcommerceShop.utils.ScriptSqlRunner;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +18,8 @@ import java.util.Optional;
 
 @Service
 public class ProductService {
+
+    private static final Logger logger = LoggerFactory.getLogger(ProductService.class);
 
     private final ProductRepository productRepository;
 
@@ -39,7 +43,7 @@ public class ProductService {
         BigDecimal refresh_amount = BigDecimal.valueOf(shoppingCart.getTotalAmount().doubleValue() - rest_amount);
         shoppingCart.setTotalAmount(refresh_amount);
         shoppingCart.setBuyCount(products_count);
-
+        logger.info("eliminando producto del carrito");
         productRepository.deleteById(id);
         shoppingCartRepository.save(shoppingCart);
         ScriptSqlRunner.runScript("src/main/resources/scripts/resetIdScript.sql");
@@ -51,10 +55,16 @@ public class ProductService {
         Optional<Product> productAux = productRepository.findById(id);
         //List<Product> productList = new ArrayList<>();
         if (productAux.isEmpty()) {
-            return new ResponseEntity<>("Error producto no se a podido agregar", HttpStatus.CONFLICT);
+            return new ResponseEntity<>("Producto no se a podido agregar", HttpStatus.CONFLICT);
         }
         Product product = productRepository.getById(id);
-        ShoppingCart cart = shoppingCartRepository.getById(product.getShoppingCart().getId());
+        Long cartId;
+        try {
+            cartId = product.getShoppingCart().getId();
+        } catch (NullPointerException e) {
+            return new ResponseEntity<>("El producto no existe en el carrito", HttpStatus.CONFLICT);
+        }
+        ShoppingCart cart = shoppingCartRepository.getById(cartId);
         int quantity_product = Integer.parseInt(product.getQuantity());
         int increment_cart = cart.getBuyCount();
         quantity_product++;
