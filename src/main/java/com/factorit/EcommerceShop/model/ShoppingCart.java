@@ -65,6 +65,8 @@ public class ShoppingCart implements Serializable {
 
     //@XmlElement(required = true)
 
+    //Asociacion de uno a muchos con OneToMany
+    //Un carrito tiene muchos productos
     @OneToMany(mappedBy = "shoppingCart", cascade = CascadeType.ALL)
     //@JsonBackReference
     @JsonManagedReference

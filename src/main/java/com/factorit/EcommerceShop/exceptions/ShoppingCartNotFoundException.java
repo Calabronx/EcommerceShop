@@ -13,7 +13,6 @@ public class ShoppingCartNotFoundException extends RuntimeException{
 
     public ShoppingCartNotFoundException(String message) {
         super(message);
-        System.out.println("[ERROR] " + "El carrito no ha sido encontrado!");
         logger.error("El carrito no ha sido encontrado!");
     }
 

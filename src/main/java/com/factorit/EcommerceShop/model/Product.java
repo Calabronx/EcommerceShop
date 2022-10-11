@@ -19,6 +19,8 @@ public class Product implements Serializable {
     @Column(name = "product_price")
     private BigDecimal price;
 
+    //Asociacion de Muchos a uno con ManyToOne
+    //Muchos productos son usados por un carrito
     @ManyToOne(fetch = FetchType.LAZY)
     //@JsonManagedReference
     @JsonBackReference
