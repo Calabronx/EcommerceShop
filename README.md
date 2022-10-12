@@ -35,9 +35,7 @@ Crear un carrito
 
 Obtiene el status de un carrito
 >GET http://localhost:8080/api/v1/cartstatus
-Obtiene el status de un carrito
-Crear un carrito 
-> POST http://localhost:8080/api/v1/create
+
 
 Seguire realizando al documentacion que no he llegado por el tiempo, cualquier consulta porfavor comunicarme!
 
