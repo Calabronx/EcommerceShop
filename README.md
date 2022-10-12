@@ -64,6 +64,10 @@ Contiene las clases de utilidad, que almacenan constantes, metodos utiles para e
 Contiene clases de configuracion del sistema
 ![image](https://user-images.githubusercontent.com/69681105/195396332-fc4e5c3c-38c8-4b4d-89d0-5129a2f12a59.png)
 
+Contiene excepciones customizadas
+![image](https://user-images.githubusercontent.com/69681105/195396460-e2e91a49-c73d-49cf-83dd-992b7b4fdcb3.png)
+
+
 
 
 # Requests de la aplicacion
