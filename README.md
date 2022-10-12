@@ -2,7 +2,7 @@
 
 
 
->Applicacion de un Sistema E Commerce
+# Applicacion FullStack de un Sistema E Commerce
 
 Sistema realizado en Spring y java 11 en su totalidad.
 Se realizo el patron de diseño MVC para manejar el control cliente servidor.
@@ -45,29 +45,34 @@ Esta realizado en base a un patron de diseño MVC
 ![image](https://user-images.githubusercontent.com/69681105/195393418-549386cb-2502-46ee-bf15-83120b142056.png)
 
 >Se guardan las clases de modelo como entidades que luego son mapeadas directamente a la base con la anotacion Entity del ORM Hibernate
->
+
 ![image](https://user-images.githubusercontent.com/69681105/195394629-ce600561-dac2-4a9f-8657-1fd7c2ffabd0.png)
 
 >Se guardan las clases de Controladores tipo Rest, para manejar las request de los endpoints realizados por el cliente del  lado del Web server
+
 ![image](https://user-images.githubusercontent.com/69681105/195394934-97711d9b-5c24-4216-a9e5-84be00150ed6.png)
 
-Se guardan las clases De servicio (Business Logic) donde se implementan los metodos que procesan la informacion
+>Se guardan las clases De servicio (Business Logic) donde se implementan los metodos que procesan la informacion
+
 ![image](https://user-images.githubusercontent.com/69681105/195395018-7a637040-f9be-404d-a307-910c2d491432.png)
 
-Se guardan las interfaces de repositorio que extienden la clase JPARepository para realizar las transacciones con la base de datos
+>Se guardan las interfaces de repositorio que extienden la clase JPARepository para realizar las transacciones con la base de datos
+
 ![image](https://user-images.githubusercontent.com/69681105/195395261-850003db-b583-4970-b020-b0652f5e2a52.png)
 
-Contiene las clases de utilidad, que almacenan constantes, metodos utiles para el procesamiento logico del sistema que luego implementa el servicio, programas java que el systema usa en su totalidad.
+>Contiene las clases de utilidad, que almacenan constantes, metodos utiles para el procesamiento logico del sistema que luego implementa el >servicio, programas java que el systema usa en su totalidad.
 
 ![image](https://user-images.githubusercontent.com/69681105/195396103-9ce1c206-ad91-48eb-aab2-b33a042edcbb.png)
 
-Contiene clases de configuracion del sistema
+>Contiene clases de configuracion del sistema
+
 ![image](https://user-images.githubusercontent.com/69681105/195396332-fc4e5c3c-38c8-4b4d-89d0-5129a2f12a59.png)
 
-Contiene excepciones customizadas
+>Contiene excepciones customizadas
+
 ![image](https://user-images.githubusercontent.com/69681105/195396460-e2e91a49-c73d-49cf-83dd-992b7b4fdcb3.png)
 
-#Front End
+# Front End
 
 >Estructura del proyecto con Angular 9
 ![image](https://user-images.githubusercontent.com/69681105/195396972-12434aa5-4f38-4828-b96e-799c699fd02c.png)
