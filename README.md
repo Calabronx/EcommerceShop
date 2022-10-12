@@ -147,8 +147,16 @@ Cambiar la membresia a mano de un cliente por request
 Eliminar todos los carritos y productos del systema
 >DELETE http://localhost:8080/api/v1/deleteAll
 
+Requests de proyecto Angular
 
 
+>GET http://localhost:4200/get-cart/{id}
+
+>GET http://localhost:4200/list-shopping-cart
+
+>POST http://localhost:4200/create
+
+>POST http://localhost:4200/add-product/{id} -> no logre hacerlo funcionar en el service de add-product.ts
 
 
 Seguire realizando al documentacion que no he llegado por el tiempo, cualquier consulta porfavor comunicarme!
