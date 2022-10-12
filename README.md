@@ -28,7 +28,7 @@ El link al projecto de postman se encuentra en el siguiente link:
 
 >https://www.postman.com/lunar-module-geologist-54896819/workspace/6a202d85-cf22-4d56-a8c5-5e52d48753ab/collection/13665825-bae44d5d-d320-4326-9186-7b2808f1081f?action=share&creator=13665825
 
-# Request
+# Requests de la aplicacion
 
 Crear un carrito 
 > POST http://localhost:8080/api/v1/create
