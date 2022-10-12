@@ -75,11 +75,29 @@ Esta realizado en base a un patron de diseño MVC
 # Front End
 
 >Estructura del proyecto con Angular 9
+
 ![image](https://user-images.githubusercontent.com/69681105/195396972-12434aa5-4f38-4828-b96e-799c699fd02c.png)
 
 
+>Componente para agregar producto 
 
+![image](https://user-images.githubusercontent.com/69681105/195397831-5c35bd6f-d2e7-4ec8-b4e6-c5d84ac26daa.png)
 
+>Componente para agregar carrito 
+>
+![image](https://user-images.githubusercontent.com/69681105/195398019-18c1e345-7627-44d3-bc10-4e48b0f03b9e.png)
+
+>Componente para listar carritos
+
+![image](https://user-images.githubusercontent.com/69681105/195398115-463f0809-0ff7-4e80-9abe-69a23190afa7.png)
+
+>Componente para listar un carrito especifico por id
+
+![image](https://user-images.githubusercontent.com/69681105/195398221-9c5dcb90-8c8d-43ab-8816-0cd26d69cd2c.png)
+
+>Componente para listar todos los productos de la base 
+
+![image](https://user-images.githubusercontent.com/69681105/195398296-058017ad-0256-44f7-a03a-e0932369ae35.png)
 
 
 # Requests de la aplicacion
