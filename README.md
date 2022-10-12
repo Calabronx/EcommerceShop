@@ -41,6 +41,7 @@ La aplicacion tiene un scheduler que monitorea en base al tiempo los carritos in
 # Estructura de la aplicacion Spring
 El objetivo de la solucion de esta architectura de software, fue maqueteado para separar las clases en capas(packages)
 Esta realizado en base a un patron de diseño MVC 
+
 ![image](https://user-images.githubusercontent.com/69681105/195393418-549386cb-2502-46ee-bf15-83120b142056.png)
 
 >Se guardan las clases de modelo como entidades que luego son mapeadas directamente a la base con la anotacion Entity del ORM Hibernate
@@ -55,6 +56,10 @@ Se guardan las clases De servicio (Business Logic) donde se implementan los meto
 
 Se guardan las interfaces de repositorio que extienden la clase JPARepository para realizar las transacciones con la base de datos
 ![image](https://user-images.githubusercontent.com/69681105/195395261-850003db-b583-4970-b020-b0652f5e2a52.png)
+
+Contiene las clases de utilidad, que almacenan constantes, metodos utiles para el procesamiento logico del sistema que luego implementa el servicio, programas java que el systema usa en su totalidad.
+
+![image](https://user-images.githubusercontent.com/69681105/195396103-9ce1c206-ad91-48eb-aab2-b33a042edcbb.png)
 
 
 
