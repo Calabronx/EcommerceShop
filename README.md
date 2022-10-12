@@ -36,6 +36,48 @@ Crear un carrito
 Obtiene el status de un carrito
 >GET http://localhost:8080/api/v1/cartstatus
 
+Eliminar carrito existente por id
+>DELETE http://localhost:8080/api/v1/delete/{id}
+
+Agregar producto al carrito pasando el id del mismo
+>POST http://localhost:8080/api/v1/addproduct/{id}
+
+Eliminar producto por id
+>DELETE http://localhost:8080/api/v2/delete/product/{id}
+
+Comprar el carrito existente por id
+>POST http://localhost:8080/api/v1/buy/{id}
+
+Crear un cliente pasandole el body
+>POST http://localhost:8080/api/v3/create
+
+Agregar cantidad de un producto ya existente al carrito
+>PUT http://localhost:8080/api/v2/add/quantity/{id}
+
+Eliminar cantidad de un producto ya existente del carrito
+>DELETE http://localhost:8080/api/v2/del/quantity/{id}
+
+Obtener todos los carritos creados activos y inactivos
+>GET http://localhost:8080/api/v1/getallcarts
+
+Obtener todos los productos existentes en el mercado disponibles para comprar
+>GET http://localhost:8080/api/v2/get
+
+Agregar producto pasandole el nombre especifico al carrito
+>POST http://localhost:8080/api/v1/add-name/{id}
+
+Obtener todos los clientes por el tipo de membresia : COMUN,PROMOCIONABLE,VIP
+>GET http://localhost:8080/api/v3/getlevel
+
+Cambiar la membresia a mano de un cliente por request
+>PUT http://localhost:8080/api/v3/changelevel/{id}
+
+Eliminar todos los carritos y productos del systema
+>DELETE http://localhost:8080/api/v1/deleteAll
+
+
+
+
 
 Seguire realizando al documentacion que no he llegado por el tiempo, cualquier consulta porfavor comunicarme!
 
