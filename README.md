@@ -38,7 +38,7 @@ La aplicacion tiene un scheduler que monitorea en base al tiempo los carritos in
 
 * Si pasan 40 minutos de un carrito creado y no es comprado por ningun cliente, se destruye.
 
-#Estructura de la aplicacion Spring
+# Estructura de la aplicacion Spring
 El objetivo de la solucion de esta architectura de software, fue maqueteado para separar las clases en capas(packages)
 Esta realizado en base a un patron de diseño MVC 
 ![image](https://user-images.githubusercontent.com/69681105/195393418-549386cb-2502-46ee-bf15-83120b142056.png)
