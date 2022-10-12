@@ -61,7 +61,8 @@ Contiene las clases de utilidad, que almacenan constantes, metodos utiles para e
 
 ![image](https://user-images.githubusercontent.com/69681105/195396103-9ce1c206-ad91-48eb-aab2-b33a042edcbb.png)
 
-
+Contiene clases de configuracion del sistema
+![image](https://user-images.githubusercontent.com/69681105/195396332-fc4e5c3c-38c8-4b4d-89d0-5129a2f12a59.png)
 
 
 
