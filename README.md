@@ -43,6 +43,22 @@ El objetivo de la solucion de esta architectura de software, fue maqueteado para
 Esta realizado en base a un patron de diseño MVC 
 ![image](https://user-images.githubusercontent.com/69681105/195393418-549386cb-2502-46ee-bf15-83120b142056.png)
 
+>Se guardan las clases de modelo como entidades que luego son mapeadas directamente a la base con la anotacion Entity del ORM Hibernate
+>
+![image](https://user-images.githubusercontent.com/69681105/195394629-ce600561-dac2-4a9f-8657-1fd7c2ffabd0.png)
+
+>Se guardan las clases de Controladores tipo Rest, para manejar las request de los endpoints realizados por el cliente del  lado del Web server
+![image](https://user-images.githubusercontent.com/69681105/195394934-97711d9b-5c24-4216-a9e5-84be00150ed6.png)
+
+Se guardan las clases De servicio (Business Logic) donde se implementan los metodos que procesan la informacion
+![image](https://user-images.githubusercontent.com/69681105/195395018-7a637040-f9be-404d-a307-910c2d491432.png)
+
+Se guardan las interfaces de repositorio que extienden la clase JPARepository para realizar las transacciones con la base de datos
+![image](https://user-images.githubusercontent.com/69681105/195395261-850003db-b583-4970-b020-b0652f5e2a52.png)
+
+
+
+
 
 # Requests de la aplicacion
 
