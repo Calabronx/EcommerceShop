@@ -21,12 +21,22 @@ Se realizo un front end sencillo con Angular 9, implementando algunas funcionali
 - Angular 9, HTML, Bootstrap 5 y CSS para una simple vista del frontend. Esta parte estaria incompleta una parte.
 - JPA Repository
 
+
 # Aplicacion Rest
 
 El link al projecto de postman se encuentra en el siguiente link:
 
 
 >https://www.postman.com/lunar-module-geologist-54896819/workspace/6a202d85-cf22-4d56-a8c5-5e52d48753ab/collection/13665825-bae44d5d-d320-4326-9186-7b2808f1081f?action=share&creator=13665825
+
+# Como ejecutar la aplicacion
+
+>Primero se debe pasar los parametros de conexion( user y password local) de mysql Server.
+En la primera ejecucion del systema en Spring java, la aplicacion va a ejecutar un script SQL para cargar 10 productos a la base, esto lo hace si esta la base sin registros.
+
+La aplicacion tiene un scheduler que monitorea en base al tiempo los carritos inactivos, esto lo hace con el SystemTime.java
+
+* Si pasan 40 minutos de un carrito creado y no es comprado por ningun cliente, se destruye.
 
 # Requests de la aplicacion
 
