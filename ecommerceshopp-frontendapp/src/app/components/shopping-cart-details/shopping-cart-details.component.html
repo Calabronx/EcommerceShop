@@ -1,0 +1,21 @@
+<div class="row">
+    <div class="col-md-4">
+        
+    </div>
+</div>
+<h1>Informacion de carrito</h1>
+<div class="card mt-1" *ngFor="let shoppingcart of shoppingcart">
+      <label>Tipo de carrito:  </label><span class="text-capitalize font-weight-bold">{{shoppingcart.cartName}}</span><br />
+      <label>Cantidad de productos :  </label><span class="text-capitalize font-weight-bold">{{shoppingcart.buyCount}}</span><br />
+      <label>Descuento:  </label><span class="text-capitalize font-weight-bold">{{shoppingcart.descount}}</span>
+  <label>Productos: <span class="text-capitalize font-weight-bold">{{shoppingcart.productsList}}</span><br />
+      
+      <label>Monto total del carrito :  $</label><span class="text-capitalize font-weight-bold">{{shoppingcart.totalAmount}}</span>
+      <br />
+      <b>Fecha de creacion : </b><span class="text-capitalize font-weight-bold">{{shoppingcart.createdAt}}</span>
+  <br />
+  <div class="card-footer">    
+    <a class="btn btn-primary text-light" routerLink="/buyCart">Pasar a finalizar compra</a>    
+  </div>
+  
+

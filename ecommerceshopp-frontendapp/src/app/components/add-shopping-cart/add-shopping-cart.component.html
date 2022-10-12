@@ -1,0 +1,11 @@
+<div class="container">
+  <div class="row">
+    <form (ngSubmit)="addShoppingCart()">
+      <div class="form-group">
+        <input type="text" name="cartName" [(ngModel)]="shoppingcart.cartName"
+               placeholder="Enter shoppcart type " class="form-control col-md-12 " />
+      </div>
+      <button type="submit" class="btn btn-primary">Add cart</button>
+    </form>
+  </div>
+</div>

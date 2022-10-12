@@ -1,0 +1,29 @@
+<h1>Listado de productos</h1>
+<div class="row">
+  <div class="col-md-4">
+    <input type="text"
+           [(ngModel)]="filters.keyword"
+           name="keyword"
+           (input)="listProducts()"
+           class="form-control"
+           placeholder="Filter cart" />
+  </div>
+
+  <div class="col-md-4">
+    <a class="btn btn-primary text-light" routerLink="/add-product:/id" >Filtrar</a>
+    <link href="/shopping-cart-details/shopping-cart-details.component.css" rel="stylesheet">
+  </div>
+</div>
+
+  <div class="card mt-1" *ngFor="let products of products">
+    
+      <label>Producto:  </label><span class="text-capitalize font-weight-bold">{{products.name}}</span><br />
+      
+      <label>Precio : $ </label><span class="text-capitalize font-weight-bold">{{products.price}}</span><br />
+  <a class="btn btn-primary text-light" routerLink="/add-product/{id}">Add to cart</a>
+    
+   
+    </div>
+  
+
+
